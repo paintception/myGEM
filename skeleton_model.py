@@ -1,7 +1,5 @@
-import numpy as np
 import random
-import pyevolve
-from matplotlib import pyplot as plt
+from genetic_alg import run_alg
 
 #TODO Think about the evaluation function of the chromosomes
 #for the genetic algorithm   
@@ -74,10 +72,6 @@ def createChromosome(): #Creates one single Chromosome of the population
     Chromosome = beliefs + intentions + desire
     
     return Chromosome
-   
-def genAlgorithm(genetic_pool): 
-    pass
-
 
 def splitGenesAndScores(Chromosome):
 
@@ -136,23 +130,28 @@ def createPopulation(num_pop): #List of chromosomes
     return population        
         
 if __name__ == "__main__":
-
-    number_generations = 2
+    
+    #FIXME add number_generations later
+    
     scores = []
+    generation_scores = []
+    tot = 0.0
+    
+    genetic_pool = createPopulation(2)
+    
+    print "This is the genetic pool:", genetic_pool
+    tot = 0    
+    for i in genetic_pool:
+        c, s = splitGenesAndScores(i)
+        print "This is the Chromosome", c
+        print "This is his Score", s
+        tot += s
+        scores.append(s)
+    tot_score = tot/len(genetic_pool)
+    generation_scores.append(tot_score)
 
-    for gen in xrange(0,number_generations):
+    print "This is the score of the population:", scores
+    
+    n = run_alg(genetic_pool, scores)
 
-        print "This is generation:", gen
-
-        genetic_pool = createPopulation(2)
-        
-        print "This is the genetic pool:", genetic_pool
-        tot = 0    
-        for i in genetic_pool:
-            c, s = splitGenesAndScores(i)
-            print "This is the Chromosome", c
-            print "This is his Score", s
-            tot += s
-            average_score = tot/2
-        scores.append(average_score)
-
+    
