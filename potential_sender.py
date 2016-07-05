@@ -131,14 +131,14 @@ if __name__ == "__main__":
     number_generations = 20
     scores = []
     generation_scores = []
-    tot = 0.0
     
     genetic_pool = createPopulation(1000) #Creation of random set of Agents
     
     #print "This is the genetic pool:", genetic_pool
     for j in xrange(0,number_generations):
 
-        tot = 0    
+        tot = 0.0
+            
         for i in genetic_pool:
             c, s = splitGenesAndScores(i)
             #print "This is the Chromosome", c
