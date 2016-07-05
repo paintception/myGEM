@@ -1,3 +1,14 @@
+"""
+	List of TODOs:
+
+	- The Genetic Algorithm implements only single cross_over. Multiple ways of breeding should be added!
+	- Selection of top Agents is given by Truncation method. Roulette Wheel and Tournament Selection should be tried
+	- The set of Agents makes children in an exponential way, this should change ---> possible reason of the success shown in the graph
+	- Randomness should be added by changing some Chromosomes randomly in order to avoid overfitting
+	- Optimal Result is still not reached, might be given by the Algorithm itself
+	- Reformat the code sooner or later
+	
+"""
 n_survive = 70
 
 def one_point_crossover(parent_1, parent_2):
