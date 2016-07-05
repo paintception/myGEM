@@ -1,9 +1,30 @@
 n_survive = 70
 
-def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
+def one_point_crossover(parent_1, parent_2):
 
-	print "Generation for the Algorithm", filtered_gen
+	cross_over_1_1 = parent_1[:4]
+	cross_over_1_2 = parent_2[:4]
 	
+	child_1 = parent_1.replace(parent_1[:4], cross_over_1_2)
+	child_2 = parent_2.replace(parent_2[:4], cross_over_1_1)
+
+	return child_1, child_2
+
+def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
+									#One Point Cross-Over Method is used
+	
+	print "Generation for the Algorithm", len(filtered_gen)
+	next_gen = []
+
+	for i in xrange(0,len(filtered_gen)-1):
+		c1, c2 = one_point_crossover(filtered_gen[i], filtered_gen[i+1])
+		next_gen.append(c1)
+		next_gen.append(c2)
+
+	print "Next Generation:", len(next_gen)		
+
+	return next_gen
+
 def prepare_pool(sorted_pool):
 	
 	elements_to_keep = (len(sorted_pool)*n_survive)/100	#Percentage of elements to keep in a generation is computed
@@ -28,4 +49,5 @@ def run_alg(pool, scores):
 
 	filtered_gen = prepare_pool(sorted_pool)
 	new_gen = create_next_gen(filtered_gen)
-	#return new_gen
+	
+	return new_gen

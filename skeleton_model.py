@@ -129,28 +129,43 @@ def createPopulation(num_pop): #A population of Agents is created
     return population        
         
 if __name__ == "__main__":
-    
-    #FIXME add number_generations later
 
+    from matplotlib import pyplot as plt
+    
+    number_generations = 20
     scores = []
     generation_scores = []
     tot = 0.0
     
-    genetic_pool = createPopulation(10) #Creation of random set of Agents
+    genetic_pool = createPopulation(1000) #Creation of random set of Agents
     
     #print "This is the genetic pool:", genetic_pool
-    tot = 0    
-    for i in genetic_pool:
-        c, s = splitGenesAndScores(i)
-        #print "This is the Chromosome", c
-        #print "This is his Score", s
-        tot += s
-        scores.append(s)    #Individual Scores of chromosomes are saved
-    tot_score = tot/len(genetic_pool)   #Total Fitness score of the generation
-    generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
+    for j in xrange(0,number_generations):
 
-    #print "This is the score of the population:", scores
-    
-    n = run_alg(genetic_pool, scores)   #Genetic Algorithm is called, with the current genetic pool and the relative scores of the Agents
+        tot = 0    
+        for i in genetic_pool:
+            c, s = splitGenesAndScores(i)
+            #print "This is the Chromosome", c
+            #print "This is his Score", s
+            tot += s
+            scores.append(s)    #Individual Scores of chromosomes are saved
+        tot_score = tot/len(genetic_pool)   #Total Fitness score of the generation
+        generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
 
+        #print "This is the score of the population:", scores
+        
+        n = run_alg(genetic_pool, scores)   #Genetic Algorithm is called, with the current genetic pool and the relative scores of the Agents
+
+        genetic_pool = n
+
+    #print "Generation Scores:", generation_scores
+    number_generations = []
+    for i in range(len(generation_scores)):
+        number_generations.append(i)
     
+    plt.xlabel('Number of Generations')
+    plt.ylabel('Succes of the Agent')
+    plt.title('Sender Model')
+    plt.ylim([45,60])
+    plt.plot(number_generations, generation_scores)
+    plt.show()
