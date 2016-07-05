@@ -4,8 +4,6 @@ from genetic_alg import run_alg
 #TODO Think about the evaluation function of the chromosomes
 #for the genetic algorithm   
 
-#TODO Implement the genetic algorithm itself
-
 """
 Check this stuff if it makes sense!!!
 
@@ -16,7 +14,7 @@ max_Desire = 20
 Optimal_Score = 64
 """
 
-def makeBeliefs(): #First part of binary string
+def makeBeliefs(): #First part of binary string, Corresponds to the Beliefs of the Agent
         
     g = random.randint(1,10)  
     p = random.randint(1,10)
@@ -31,7 +29,7 @@ def makeBeliefs(): #First part of binary string
         
     return beliefes
     
-def makeIntentions():   #Second part of binary string
+def makeIntentions():   #Second part of binary string, Corresponds to the Intentions of the Agent
           
     g = random.randint(1,10)  
     p = random.randint(1,10)
@@ -46,7 +44,7 @@ def makeIntentions():   #Second part of binary string
     
     return intentions
     
-def makeDesire():   #Third part of the binary string
+def makeDesire():   #Third part of the binary string, Corresponds to the Desirs of the Agent
    
     g = random.randint(1,10)  
     p = random.randint(1,10)
@@ -62,7 +60,7 @@ def makeDesire():   #Third part of the binary string
     return desire
 
 def createChromosome(): #Creates one single Chromosome of the population
-   
+                        #According to the BDI Architecture
     Chromosome = []
     
     beliefs = makeBeliefs() 
@@ -73,8 +71,9 @@ def createChromosome(): #Creates one single Chromosome of the population
     
     return Chromosome
 
-def splitGenesAndScores(Chromosome):
-
+def splitGenesAndScores(Chromosome):   #Every Agent is separated and individual feature scores are computed
+                                       #Returns a Score for every member of the population 
+    
     #print "This is one single Agent:", Chromosome
 
     B_gamma = Chromosome[:4]
@@ -115,11 +114,11 @@ def splitGenesAndScores(Chromosome):
     
     ChromosomeScore = BeliefScore + IntentionScore + DesireScore
     #print "----------------------------------------------------"
-      
 
     return Chromosome, ChromosomeScore
 
-def createPopulation(num_pop): #List of chromosomes 
+def createPopulation(num_pop): #A population of Agents is created
+                               #List of Chromosomes 
      
     population = []
     
@@ -132,26 +131,26 @@ def createPopulation(num_pop): #List of chromosomes
 if __name__ == "__main__":
     
     #FIXME add number_generations later
-    
+
     scores = []
     generation_scores = []
     tot = 0.0
     
-    genetic_pool = createPopulation(2)
+    genetic_pool = createPopulation(10) #Creation of random set of Agents
     
-    print "This is the genetic pool:", genetic_pool
+    #print "This is the genetic pool:", genetic_pool
     tot = 0    
     for i in genetic_pool:
         c, s = splitGenesAndScores(i)
-        print "This is the Chromosome", c
-        print "This is his Score", s
+        #print "This is the Chromosome", c
+        #print "This is his Score", s
         tot += s
-        scores.append(s)
-    tot_score = tot/len(genetic_pool)
-    generation_scores.append(tot_score)
+        scores.append(s)    #Individual Scores of chromosomes are saved
+    tot_score = tot/len(genetic_pool)   #Total Fitness score of the generation
+    generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
 
-    print "This is the score of the population:", scores
+    #print "This is the score of the population:", scores
     
-    n = run_alg(genetic_pool, scores)
+    n = run_alg(genetic_pool, scores)   #Genetic Algorithm is called, with the current genetic pool and the relative scores of the Agents
 
     
