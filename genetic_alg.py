@@ -9,7 +9,10 @@
 	- Reformat the code sooner or later
 	
 """
+import random
+
 n_survive = 70
+mutation_rate = 10
 
 def one_point_crossover(parent_1, parent_2):
 
@@ -21,19 +24,43 @@ def one_point_crossover(parent_1, parent_2):
 
 	return child_1, child_2
 
+def random_mutation(pool):
+
+	chromosomes_to_mutate = random.choice(pool)
+	
+	position_to_mutate = random.randint(0, len(chromosomes_to_mutate)-1)
+	
+	if chromosomes_to_mutate[position_to_mutate] == "1":
+		chromosomes_to_mutate=chromosomes_to_mutate[:position_to_mutate] + "prova" + chromosomes_to_mutate[1+position_to_mutate:]
+	elif chromosomes_to_mutate[position_to_mutate] == "0":
+		chromosomes_to_mutate=chromosomes_to_mutate[:position_to_mutate] + "prova2" + chromosomes_to_mutate[1+position_to_mutate:]
+	else:
+		raise Exception("Chromosome Error!")
+
+	pool.append(chromosomes_to_mutate)
+
+	return pool
+
 def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
 									#One Point Cross-Over Method is used
 	
-	print "Generation for the Algorithm", len(filtered_gen)
+	#print "Generation for the Algorithm", len(filtered_gen)
 	next_gen = []
 
 	for i in xrange(0,len(filtered_gen)-1):
 		c1, c2 = one_point_crossover(filtered_gen[i], filtered_gen[i+1])
 		next_gen.append(c1)
 		next_gen.append(c2)
+	
+	size = (len(next_gen)*mutation_rate)/100
+	pool_to_mutate = []
 
-	print "Next Generation:", len(next_gen)		
+	for i in xrange(0,size):
+		tmp = random.choice(next_gen)
+		pool_to_mutate.append(tmp)
 
+	mutation = random_mutation(pool_to_mutate)
+	
 	return next_gen
 
 def prepare_pool(sorted_pool):
