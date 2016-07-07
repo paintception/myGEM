@@ -65,12 +65,12 @@ def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
 
 	for i in xrange(0,len(filtered_gen)-1):
 		c1, c2 = one_point_crossover(filtered_gen[i], filtered_gen[i+1])
-		c = three_parent_crossover(filtered_gen[i], filtered_gen[i+1], filtered_gen[i+2])
+		#c = three_parent_crossover(filtered_gen[i], filtered_gen[i+1], filtered_gen[i+2])
 		
 		next_gen_singleCrossover.append(c1)
 		next_gen_singleCrossover.append(c2)
 	
-		next_gen_threeParentCrossover.append(c)
+		#next_gen_threeParentCrossover.append(c)
 
 	size = (len(next_gen_singleCrossover)*mutation_rate)/100
 	pool_to_mutate = []
@@ -79,7 +79,7 @@ def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
 		tmp = random.choice(next_gen_singleCrossover)
 		pool_to_mutate.append(tmp)
 
-	mutation = random_mutation(pool_to_mutate)
+	#mutation = random_mutation(pool_to_mutate)
 
 	return next_gen_singleCrossover
 
