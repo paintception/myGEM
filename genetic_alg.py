@@ -80,7 +80,8 @@ def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
 		pool_to_mutate.append(tmp)
 
 	#mutation = random_mutation(pool_to_mutate)
-
+	print len(next_gen_singleCrossover)
+	
 	return next_gen_singleCrossover
 
 def prepare_pool(sorted_pool):

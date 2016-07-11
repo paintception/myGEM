@@ -132,7 +132,7 @@ if __name__ == "__main__":
     scores = []
     generation_scores = []
     
-    genetic_pool = createPopulation(1000) #Creation of random set of Agents
+    genetic_pool = createPopulation(100) #Creation of random set of Agents
     
     #print "This is the genetic pool:", genetic_pool
     for j in xrange(0,number_generations):
