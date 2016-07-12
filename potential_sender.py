@@ -123,11 +123,29 @@ def createPopulation(num_pop): #A population of Agents is created
         population.append(c)
      
     return population        
-        
-if __name__ == "__main__":
 
+def standardization(generation_scores):
+    
+    standardized_scores = []
+    
+    for score in generation_scores:
+	standardized_scores.append(((score*100)/60))
+
+    return standardized_scores
+
+def makeplots(number_generations, sc):
+    
     from matplotlib import pyplot as plt
     
+    plt.xlabel('Number of Generations')
+    plt.ylabel('Succes of the Agent')
+    plt.title('Sender Model')
+    plt.ylim([80,100])
+    plt.plot(number_generations, sc)
+    plt.show()
+
+if __name__ == "__main__":
+
     number_generations = 20
     scores = []
     generation_scores = []
@@ -149,19 +167,21 @@ if __name__ == "__main__":
         generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
 
         #print "This is the score of the population:", scores
-        
+
         n = run_alg(genetic_pool, scores)   #Genetic Algorithm is called, with the current genetic pool and the relative scores of the Agents
 
         genetic_pool = n
 
-    #print "Generation Scores:", generation_scores
+    print "Generation Scores:", generation_scores
+   
+
+    sc = standardization(generation_scores)
+    print "Standardized Scores:", sc
+
     number_generations = []
     for i in range(len(generation_scores)):
         number_generations.append(i)
     
-    plt.xlabel('Number of Generations')
-    plt.ylabel('Succes of the Agent')
-    plt.title('Sender Model')
-    plt.ylim([45,60])
-    plt.plot(number_generations, generation_scores)
-    plt.show()
+
+    makeplots(number_generations, sc)
+
