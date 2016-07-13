@@ -2,14 +2,12 @@
 	List of TODOs:
 
 	- The Genetic Algorithm implements only single cross_over. Multiple ways of breeding should be added!
-	- Optimal Result is still not reached, might be given by the Algorithm itself
 	- Reformat the code sooner or later
 	
 """
 import random
 
 n_survive = 70
-mutation_rate = 10
 
 def three_parent_crossover(parent_1, parent_2, parent_3):
 
@@ -94,5 +92,6 @@ def run_alg(pool, scores):
 		new_gen.append(c2)
 
 	mutated_gen = random_mutation(new_gen)
+	print "Length of the newest generation:", len(mutated_gen)
 	
 	return new_gen
