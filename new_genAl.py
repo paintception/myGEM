@@ -1,7 +1,6 @@
 import numpy as np
 import random
 
-
 class GeneticAlgorithm(object):
 	
 	def create_population():
@@ -26,6 +25,25 @@ class GeneticAlgorithm(object):
 		child2 = parent_2.replace(parent_2[:3], cross_over_1_1)
 
 		return child1, child2
+
+	def three_parent_crossover(parent_1, parent_2, parent_3):
+
+		print "Parent 1:", parent_1
+		print "Parent 2:", parent_2
+		print "Parent 3:", parent_3
+		
+		child = []
+
+		for i,j,k in zip(parent_1,parent_2,parent_3):
+		    if i == j:
+		   		child.append(i)
+		    else:
+		        child.append(k)
+
+		child = ''.join(child)
+		print "Child:", child
+
+		return child
 
 	def random_mutation(generation):
 		
@@ -55,14 +73,22 @@ class GeneticAlgorithm(object):
 		
 		pop = create_population()
 		new_gen = []
+		three_new_gen = []
 
+		
 		for i in xrange(0,len(pop)-1):
 			c1, c2 = single_crossover(pop[i], pop[i+1])
 			new_gen.append(c1)
 			new_gen.append(c2)
 
+		print "Single Crossover Generation", new_gen
 		mutated_gen = random_mutation(new_gen)
-
-		print "Initial Population:", pop
-		print "Mutated Population:", list(mutated_gen)
-
+		
+		
+		for i in xrange(0, len(pop)-2):
+			child = three_parent_crossover(pop[i], pop[i+1], pop[i+2])
+			three_new_gen.append(child)
+			
+		print "3 Crossover Generation:", three_new_gen
+		mutated_gen = random_mutation(new_gen)
+		
