@@ -14,16 +14,6 @@ import random
 n_survive = 70
 mutation_rate = 10
 
-def one_point_crossover(parent_1, parent_2):
-
-	cross_over_1_1 = parent_1[:4]
-	cross_over_1_2 = parent_2[:4]
-	
-	child_1 = parent_1.replace(parent_1[:4], cross_over_1_2)
-	child_2 = parent_2.replace(parent_2[:4], cross_over_1_1)
-
-	return child_1, child_2
-
 def three_parent_crossover(parent_1, parent_2, parent_3):
 
 	child = []
@@ -34,55 +24,50 @@ def three_parent_crossover(parent_1, parent_2, parent_3):
 	    else:
 	        child.append(k)
 
+	child = ''.join(child)
+
 	return child
 
-
-"""
-def random_mutation(pool):	#FIXME Still doesn't work
-
-	chromosomes_to_mutate = random.choice(pool)
-	
-	position_to_mutate = random.randint(0, len(chromosomes_to_mutate)-1)
-	
-	if chromosomes_to_mutate[position_to_mutate] == "1":
-		chromosomes_to_mutate=chromosomes_to_mutate[:position_to_mutate] + "0" + chromosomes_to_mutate[1+position_to_mutate:]
-	elif chromosomes_to_mutate[position_to_mutate] == "0":
-		chromosomes_to_mutate=chromosomes_to_mutate[:position_to_mutate] + "1" + chromosomes_to_mutate[1+position_to_mutate:]
-	else:
-		raise Exception("Chromosome Error!")
-
-	pool.append(chromosomes_to_mutate)
-
-	return pool
-"""
-
-def create_next_gen(filtered_gen):	#Fittest pool ready to reproduce
-									#One Point Cross-Over Method is used
-	
-	#print "Generation for the Algorithm", len(filtered_gen)
-	next_gen_singleCrossover = []
-	next_gen_threeParentCrossover = []
-
-	for i in xrange(0,len(filtered_gen)-1):
-		c1, c2 = one_point_crossover(filtered_gen[i], filtered_gen[i+1])
-		#c = three_parent_crossover(filtered_gen[i], filtered_gen[i+1], filtered_gen[i+2])
+def single_crossover(parent_1, parent_2):
 		
-		next_gen_singleCrossover.append(c1)
-		next_gen_singleCrossover.append(c2)
+		parent_1 = ''.join(str(e) for e in parent_1)
+		parent_2 = ''.join(str(e) for e in parent_2)
+
+		cross_over_1_1 = parent_1[:3]
+		cross_over_1_2 = parent_2[:3]
+
+		child1 = parent_1.replace(parent_1[:3], cross_over_1_2)
+		child2 = parent_2.replace(parent_2[:3], cross_over_1_1)
+
+		return child1, child2
+
+def random_mutation(generation):
 	
-		#next_gen_threeParentCrossover.append(c)
+	print type(generation)
+	index = random.randrange(len(generation))
+	print "Index", index
 
-	size = (len(next_gen_singleCrossover)*mutation_rate)/100
-	pool_to_mutate = []
+	gene_to_mutate = generation[index]
 
-	for i in xrange(0,size):
-		tmp = random.choice(next_gen_singleCrossover)
-		pool_to_mutate.append(tmp)
+	print "Gene to mutate:", gene_to_mutate
 
-	#mutation = random_mutation(pool_to_mutate)
-	print len(next_gen_singleCrossover)
-	
-	return next_gen_singleCrossover
+	list_gene_to_mutate = list(gene_to_mutate)
+
+	index = random.randint(0,len(list_gene_to_mutate)-1)
+		
+	for i, j in enumerate(list_gene_to_mutate):
+		if i == index:
+			if j == "0":
+				list_gene_to_mutate[i] = 1
+			elif j == "1":
+				list_gene_to_mutate[i] = 0
+			else:
+				raise Exception("Chromosome is not supported!")
+		
+	mutated_gen = ''.join(str(e) for e in list_gene_to_mutate)
+	generation[index] = mutated_gen
+		
+	return generation
 
 def prepare_pool(sorted_pool):
 	
@@ -102,8 +87,15 @@ def run_alg(pool, scores):
 	
 	merged_pool = zip(pool, scores)	#Chromosomes and relative scores are merged together
 	sorted_pool = sorted(merged_pool, key=lambda x: x[1], reverse=True) #Descending sorting, higher scores are at the top of the list
-
 	filtered_gen = prepare_pool(sorted_pool)
-	new_gen = create_next_gen(filtered_gen)
-		
+	
+	new_gen = []
+
+	for i in xrange(0,len(filtered_gen)-1):
+		c1, c2 = single_crossover(filtered_gen[i], filtered_gen[i+1])
+		new_gen.append(c1)
+		new_gen.append(c2)
+
+	mutated_gen = random_mutation(new_gen)
+	
 	return new_gen
