@@ -6,8 +6,6 @@ from genetic_alg import run_alg
 
     - Check this stuff the Architecture makes sense!!! max_Beliefs = 22 max_Intentions = 22  max_Desire = 20 Optimal_Score = 64
     - Consider >= 64 results in the Fitness f(x)
-    - Normalize the Results in 100 Scale
- 
 """
 
 def makeBeliefs(): #First part of binary string, Corresponds to the Beliefs of the Agent
@@ -164,6 +162,10 @@ if __name__ == "__main__":
             tot += s
             scores.append(s)    #Individual Scores of chromosomes are saved
         tot_score = tot/len(genetic_pool)   #Total Fitness score of the generation
+        
+        if tot_score > 60:
+            raise Exception("Algorithm did overfit! Launch again")
+
         generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
 
         #print "This is the score of the population:", scores
