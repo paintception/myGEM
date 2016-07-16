@@ -131,22 +131,14 @@ def standardization(generation_scores):
 
     return standardized_scores
 
-def makeplots(number_generations, sc):
-    
-    from matplotlib import pyplot as plt
-    
-    plt.xlabel('Number of Generations')
-    plt.ylabel('Succes of the Agent')
-    plt.title('Sender Model')
-    plt.ylim([80,100])
-    plt.plot(number_generations, sc)
-    plt.show()
-
 if __name__ == "__main__":
+
+    from plots import *
 
     number_generations = 20
     scores = []
     generation_scores = []
+    Agent_set = []
     
     genetic_pool = createPopulation(100) #Creation of random set of Agents
     
@@ -163,6 +155,8 @@ if __name__ == "__main__":
             scores.append(s)    #Individual Scores of chromosomes are saved
         tot_score = tot/len(genetic_pool)   #Total Fitness score of the generation
         
+        Agent_set.append(genetic_pool)
+
         if tot_score > 60:
             raise Exception("Algorithm did overfit! Launch again")
 
@@ -176,14 +170,18 @@ if __name__ == "__main__":
 
     print "Generation Scores:", generation_scores
    
-
     sc = standardization(generation_scores)
     print "Standardized Scores:", sc
 
     number_generations = []
     for i in range(len(generation_scores)):
         number_generations.append(i)
-    
 
     makeplots(number_generations, sc)
+
+    worst_set = min(Agent_set)
+    best_set = max(Agent_set)
+
+    analyze_Set(worst_set)
+    analyze_Set(best_set)
 
