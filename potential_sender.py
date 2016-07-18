@@ -127,7 +127,7 @@ def standardization(generation_scores):
     standardized_scores = []
     
     for score in generation_scores:
-	standardized_scores.append(((score*100)/60))
+        standardized_scores.append(((score*100)/60))
 
     return standardized_scores
 
@@ -179,9 +179,14 @@ if __name__ == "__main__":
 
     makeplots(number_generations, sc)
 
-    worst_set = min(Agent_set)
     best_set = max(Agent_set)
+    best_scores = []
 
-    analyze_Set(worst_set)
-    analyze_Set(best_set)
+    for i in best_set:
+        c, s = splitGenesAndScores(i)
+        best_scores.append(s)
 
+    b_i = best_scores.index(max(best_scores))
+    b_c = best_set[b_i]
+
+    analyze_Chromo(b_c)

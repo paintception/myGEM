@@ -38,10 +38,7 @@ def single_crossover(parent_1, parent_2):
 
 def random_mutation(generation):
 	
-	print type(generation)
 	index = random.randrange(len(generation))
-	print "Index", index
-
 	gene_to_mutate = generation[index]
 
 	print "Gene to mutate:", gene_to_mutate
