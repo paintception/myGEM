@@ -1,5 +1,11 @@
+import seaborn as sns
 from matplotlib import pyplot as plt
 import random
+
+Beliefes_Set = []
+Desires_Set = []
+Intentions_Set = []
+
 
 def makeplots(number_generations, sc):
 
@@ -10,8 +16,22 @@ def makeplots(number_generations, sc):
     plt.plot(number_generations, sc)
     plt.show()
 
+def GenerationPlot(bel, des, inten):
 
-def analyze_Chromo(chromo):
+    scatter_bel = [0] * len(bel)
+    scatter_des = [1] * len(des)
+    scatter_inten = [2] * len(inten)
+
+    plt.xlabel('BDI Features')
+    plt.ylabel('Scores')
+    plt.scatter(scatter_bel, bel, s=40, lw=0, color='gold', marker='o', label=r'B')
+    plt.scatter(scatter_des, des, s=40, lw=0, color='blue', marker='^', label=r'D')
+    plt.scatter(scatter_inten, inten, s=40, lw=0, color='red', marker='*', label=r'I')
+    plt.legend(loc='lower right')
+
+    plt.show()
+
+def analyze_Generation(chromo):
 
     Beliefes = chromo[0:12]
     Desires = chromo[12:24]
@@ -34,14 +54,23 @@ def analyze_Chromo(chromo):
     print "B_psi", B_psi
     print "B_gamma", B_gamma
     print "================================"
-
+    
+    Beliefes_Set.extend((B_alfa, B_psi, B_gamma))
+    
     print "D_alfa", D_alfa
     print "D_psi", D_psi
     print "D_gamma", D_gamma
     print "================================"
 
+    Desires_Set.extend((D_alfa, D_psi, D_gamma))
+
     print "I_alfa", I_alfa
     print "I_psi", I_psi
     print "I_gamma", I_gamma
     print "================================"
+
+    Intentions_Set.extend((I_alfa, I_psi, I_gamma))
+
+    return Beliefes_Set, Desires_Set, Intentions_Set
+    
     
