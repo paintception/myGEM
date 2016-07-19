@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     from plots import *
 
-    number_simulations = 5
+    number_simulations = 2
 
     for i in xrange(0, number_simulations):
 
@@ -180,7 +180,7 @@ if __name__ == "__main__":
         for i in range(len(generation_scores)):
             number_generations.append(i)
 
-        makeplots(number_generations, sc)
+        #makeplots(number_generations, sc)
 
         best_set = max(Agent_set)
         best_scores = []
@@ -194,4 +194,4 @@ if __name__ == "__main__":
 
         b, d, i = analyze_Generation(b_c)
 
-    GenerationPlot(b,d,i)
+    Final_StatPlots(b, d, i)

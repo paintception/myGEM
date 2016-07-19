@@ -1,35 +1,65 @@
 import seaborn as sns
+import numpy as np
 from matplotlib import pyplot as plt
 import random
+import pylab
 
 Beliefes_Set = []
 Desires_Set = []
 Intentions_Set = []
 
-
+"""
 def makeplots(number_generations, sc):
-
+    
     plt.xlabel('Number of Generations')
     plt.ylabel('Succes of the Agent')
     plt.title('Sender Model')
     plt.ylim([80,100])
     plt.plot(number_generations, sc)
     plt.show()
+"""
 
-def GenerationPlot(bel, des, inten):
+def Final_StatPlots(b, d, i):
 
-    scatter_bel = [0] * len(bel)
-    scatter_des = [1] * len(des)
-    scatter_inten = [2] * len(inten)
+    belief_counter = ([[x,b.count(x)] for x in set(b)]) 
+    desire_counter = ([[x,d.count(x)] for x in set(d)]) 
+    intention_counter = ([[x,i.count(x)] for x in set(i)]) 
 
-    plt.xlabel('BDI Features')
-    plt.ylabel('Scores')
-    plt.scatter(scatter_bel, bel, s=40, lw=0, color='gold', marker='o', label=r'B')
-    plt.scatter(scatter_des, des, s=40, lw=0, color='blue', marker='^', label=r'D')
-    plt.scatter(scatter_inten, inten, s=40, lw=0, color='red', marker='*', label=r'I')
-    plt.legend(loc='lower right')
+    b_values = []
+    b_occurences = []
+    d_values = []
+    d_occurences = []
+    i_values = []
+    i_occurences = []
 
+    for i in belief_counter:
+         b_values.append(i[0])
+         b_occurences.append(i[1])
+    
+    for j in desire_counter:
+         d_values.append(j[0])
+         d_occurences.append(j[1])
+    
+    for k in intention_counter:
+         i_values.append(k[0])
+         i_occurences.append(k[1])
+    
+    b_values = np.array(b_values)
+    d_values = np.array(d_values)
+    i_values = np.array(i_values)
+
+    plt.xlabel('Feature Values')
+    plt.ylabel('Feature Occurance')
+    plt.title('Scores')
+    plt.ylim([0,20]) 
+    
+    ax = plt.subplot(111)
+    ax.bar(b_values-0.25, b_occurences,width=0.2,color='gold',align='center')
+    ax.bar(d_values, d_occurences,width=0.2,color='blue',align='center')
+    ax.bar(i_values+0.25, i_occurences,width=0.2,color='red',align='center')
+    ax.legend([b_occurences], ["Beliefes"])
     plt.show()
+
 
 def analyze_Generation(chromo):
 
