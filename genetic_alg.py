@@ -1,10 +1,3 @@
-"""
-	List of TODOs:
-
-	- The Genetic Algorithm implements only single cross_over. Multiple ways of breeding should be added!
-	- Reformat the code sooner or later
-	
-"""
 import random
 
 n_survive = 70
