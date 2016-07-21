@@ -16,7 +16,8 @@ def makeplots(number_generations, sc):
     plt.title('Sender Model')
     plt.ylim([80,100])
     plt.plot(number_generations, sc)
-    plt.show()
+    plt.savefig('res/GenAl/genAl.png')
+    #plt.show()
 
 def Final_StatPlots(b, d, i):
 
@@ -56,10 +57,8 @@ def Final_StatPlots(b, d, i):
     ax.bar(b_values-0.25, b_occurences,width=0.2,color='gold',align='center')
     ax.bar(d_values, d_occurences,width=0.2,color='blue',align='center')
     ax.bar(i_values+0.25, i_occurences,width=0.2,color='red',align='center')
-    plt.legend([b_occurences, d_occurences, i_occurences], ["Beliefes", "Desires", "Intentions"])
     plt.savefig('res/BDI/BDI_features.png')
     plt.show()
-
 
 def analyze_Generation(chromo):
 

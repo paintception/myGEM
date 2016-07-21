@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     from plots import *
 
-    number_simulations = 5
+    number_simulations = 20
 
     for i in xrange(0, number_simulations):
 
