@@ -29,15 +29,15 @@ if __name__ == "__main__":
         
         #TODO add option which agent to simulate!
 
-        genetic_pool = create_Sender_Population(100) #Creation of random set of Agents
-        #genetic_pool = create_Criminal_Population(100)
+        #genetic_pool = create_Sender_Population(100) #Creation of random set of Agents
+        genetic_pool = create_Criminal_Population(100)
 
         #print "This is the genetic_algnetic pool:", genetic_pool
         for j in xrange(0,number_generations):
             
             print "Generation:", j
 
-            tot = 0.0
+            tot = 0.000
             
             for i in genetic_pool:
                 c, s = splitGenesAndScores(i)

@@ -1,6 +1,6 @@
 import random
 
-n_survive = 70	
+n_survive = 80	
 
 def three_parent_crossover(parent_1, parent_2, parent_3):
 
@@ -28,6 +28,20 @@ def single_crossover(parent_1, parent_2):
 		child2 = parent_2.replace(parent_2[:3], cross_over_1_1)
 
 		return child1, child2
+
+def double_crossover(parent_1, parent_2):
+
+	cross_over_1_1 = parent_1[:6]
+	cross_over_1_2 = parent_2[:6]
+
+	tmp_1 = parent_1.replace(parent_1[:6], cross_over_1_2)
+	tmp_2 = parent_2.replace(parent_2[:6], cross_over_1_1)
+
+	child_1 = tmp_1.replace(tmp_1[-6:], tmp_2[-6:])
+	child_2 = tmp_2.replace(tmp_2[-6:], tmp_1[-6:])
+
+	return child_1, child_2
+	
 
 def random_mutation(generation):
 	
@@ -77,7 +91,7 @@ def run_alg(pool, scores):
 	new_gen = []
 
 	for i in xrange(0,len(filtered_gen)-1):
-		c1, c2 = single_crossover(filtered_gen[i], filtered_gen[i+1])
+		c1, c2 = double_crossover(filtered_gen[i], filtered_gen[i+1])
 		new_gen.append(c1)
 		new_gen.append(c2)
 

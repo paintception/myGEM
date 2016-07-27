@@ -14,7 +14,7 @@ def makeplots(number_generations, sc):
     plt.xlabel('Number of Generations')
     plt.ylabel('Succes of the Agent')
     plt.title('Sender Model')
-    plt.ylim([70, 100])
+    plt.ylim([30, 100])
     plt.plot(number_generations, sc)
     plt.savefig('res/GenAl/Criminal/genAl.png')
     #plt.show()
@@ -51,7 +51,7 @@ def Final_StatPlots(b, d, i):
     plt.xlabel('Feature Values')
     plt.ylabel('Feature Occurance')
     plt.title('Sender Scores')
-    plt.ylim([0,25]) 
+    plt.ylim([0,40]) 
     
     ax = plt.subplot(111)
     ax.bar(b_values-0.25, b_occurences,width=0.2,color='gold',align='center')
