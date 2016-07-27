@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Modelling Rational Agents with a Genetic Algorithm</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="genAlModel.tex"> 
+<meta name="date" content="2016-07-26 14:16:00"> 
+<link rel="stylesheet" type="text/css" href="genAlModel.css"> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">Modelling Rational Agents with a Genetic
+Algorithm</h2>
+<div class="author" ><span 
+class="ecrm-1200">Matthia Sabatelli</span></div><br />
+<div class="date" ><span 
+class="ecrm-1200">July 26, 2016</span></div>
+   </div>
+   <div 
+class="abstract" 
+>
+<div class="center" 
+>
+<!--l. 19--><p class="noindent" >
+<!--l. 19--><p class="noindent" ><span 
+class="ecbx-0900">Abstract</span></div>
+     <!--l. 21--><p class="indent" >    <span 
+class="ecrm-0900">In the following sections we propose a computational simulation which</span>
+     <span 
+class="ecrm-0900">aims to model the behaviour of some of the agents that could make use of</span>
+     <span 
+class="ecrm-0900">the </span><span 
+class="ecti-0900">spyGEM </span><span 
+class="ecrm-0900">system. The model combines knowledge of different research</span>
+     <span 
+class="ecrm-0900">areas that include Epistemic Logic, Machine Learning and Multi-Agent</span>
+     <span 
+class="ecrm-0900">Systems. Two agents have been modelled, a possible Sender and a relative</span>
+     <span 
+class="ecrm-0900">Criminal. The goal of the first one is to encrypt and send a top-secret</span>
+     <span 
+class="ecrm-0900">message as safely as possible, on the other side the criminal&#8217;s goal is to</span>
+     <span 
+class="ecrm-0900">avoid this possible scenario. The agents have been modelled according to</span>
+     <span 
+class="ecrm-0900">the </span><span 
+class="ecti-0900">BDI Architecture</span><span 
+class="ecrm-0900">, a formal model that defines how rational agents</span>
+     <span 
+class="ecrm-0900">act and behave, which has been modified and expanded specifically for</span>
+     <span 
+class="ecrm-0900">this simulation. The individual parameters of this architecture have been</span>
+     <span 
+class="ecrm-0900">estimated through the use of a genetic algorithm in order to understand</span>
+     <span 
+class="ecrm-0900">which parts of it turn out to be more significant in a possible </span><span 
+class="ecti-0900">spyGEM</span>
+     <span 
+class="ecrm-0900">scenario.</span>
+</div>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Introduction</h3>
+<!--l. 27--><p class="noindent" >Mention that we shifted from simple communication medium to bigger data
+storage
+                                                                  
+
+                                                                  
+<!--l. 29--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-20002"></a>Architecture of the Model</h3>
+<!--l. 31--><p class="noindent" >The Agents have been modelled according to the <span 
+class="ecti-1000">BDI Architecture</span>, an epistemic logic
+based system proposed in *ref* in 1991. The paper states how important Beliefs,
+Desires and Intentions are in determining the behaviour of rational agents, more in
+detail the authors assert how every rational action which is taken from an agent is
+based on these three components. The combination of these features have an impact
+on the agent&#8217;s future since they produce different actions and as a consequence give
+rise to different future scenarios. These possible scenarios, called <span 
+class="ecti-1000">Worlds</span>, are
+modelled according to a temporal structure and are defined as <span 
+class="ecti-1000">Time Trees</span>, every
+moment in the time tree is the result of an action based on the three previously
+mentioned BDI features and is defined as <span 
+class="ecti-1000">Situation</span>. One Agent can move
+between different time situations until it achieves its goal. The three BDI
+components have a different impact on the agent&#8217;s behaviour and are defined as
+follows:
+     <ul class="itemize1">
+     <li class="itemize">Beliefs: are defined as those worlds that the agent believes to be possible,
+     technically every <span 
+class="ecti-1000">Belief </span>is considered as a complete and independent <span 
+class="ecti-1000">Time</span>
+     <span 
+class="ecti-1000">Tree </span>since there are no restrictions that can avoid an Agent to believe
+     something. This feature is formalized as follows: <span 
+class="cmsy-10">&#x2200; </span>w <span 
+class="cmsy-10">&#x2208; </span>W. <br 
+class="newline" />Where w corresponds to a single time tree and W as the entire set of
+     beliefs.
+     </li>
+     <li class="itemize">Desires: are those worlds that correspond to the optimal future scenario
+     an agent wants to achieve, an agent can be happy with multiple outcomes
+     but usually the main <span 
+class="ecti-1000">Desire </span>is a single one and can be expressed by the
+     following formalism: <span 
+class="cmsy-10">&#x2203;</span><span 
+class="cmr-10">! </span>w <span 
+class="cmsy-10">&#x2208; </span>W.
+     </li>
+     <li class="itemize">Intentions:  are  considered  as  sets  of  intention-accessible  worlds.  These
+     worlds  are  ones  that  the  agent  has  committed  to  attempt  to  realize.
+     Differently from the <span 
+class="ecti-1000">Beliefs</span>, where all possible worlds are considered, the
+     <span 
+class="ecti-1000">Intention </span>feature is characterized by a strong component of realism since
+     the worlds that are part of this feature are only the ones that the Agent
+     thinks can be a possible <span 
+class="ecti-1000">Desire</span>. Intentions are formalized as follows:
+     </li></ul>
+<!--l. 42--><p class="indent" >   In addition to the three BDI features some extra parameters have been added in
+order to model the agents. The reason this has been done is related to the genetic
+algorithm that has been used in order to simulate their behaviour and is explained
+into more detail in the next section. The parameters that have been added to the
+architecture are different according to the type of agent that has been modelled,
+however the general idea is the same one for both of them. In order to represent a
+potential level of <span 
+class="ecti-1000">Beliefs, Desires </span>and <span 
+class="ecti-1000">Intentions </span>in a <span 
+class="ecti-1000">spyGEM </span>scenario some extra
+features related to this specific world have been added that might have an impact
+on all three BDI components and as a consequence on the agents&#8217; actions.
+<br 
+class="newline" />Regarding a potential <span 
+class="ecti-1000">Sender </span>the three additional features that have been added are
+the following:
+                                                                  
+
+                                                                  
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="cmmi-10">&#x03B3;</span>: which corresponds to a particular level of <span 
+class="ecti-1000">riskiness </span>the agent will take
+     into account in his actions. The impact of this feature is different on the
+     three BDI components, in fact a high level of riskiness makes the agent
+     have a smaller set of total <span 
+class="ecti-1000">Beliefs </span>since there is no reason to think about
+     all those worlds that involve highly safe scenarios. On the other side it is
+     possible that a high level of <span 
+class="cmmi-10">&#x03B3; </span>leads to the optimal desired world and as a
+     consequence to a world the agent thinks requires commitment.
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">&#x03C8;</span>: is a variable that is related to the level of <span 
+class="ecti-1000">efficiency </span>that the agent
+     wants to pursue in its actions. In this case the higher this value is the
+     higher the value of the three BDI components will be.
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">&#x03B1;</span>: corresponds to the <span 
+class="ecti-1000">time resources </span>the agent is willing to invest when
+     creating its BDI features, the impact of this variable is similar to the
+     previous one. The more time that is invested by an agent, the higher the
+     set of Beliefs will be and the overall commitment to the possible worlds
+     towards the optimal scenario.</li></ul>
+<!--l. 50--><p class="indent" >   The idea of the model was to identify which of the three BDI components is
+considered as more important by a potential <span 
+class="ecti-1000">Sender </span>agent who wants to hide and
+send an encrypted message as safely as possible and by a <span 
+class="ecti-1000">Criminal </span>who wants to
+avoid this scenario. In order to find this out a genetic algorithm has been used on
+different randomly generated agents and the level of the three BDI features has been
+measured. <br 
+class="newline" />Genetic algorithms are a very common machine learning technique that is used in
+different Artificial Intelligence optimization problems, they are largely inspired by
+natural evolution and work as follows: a random set of possible solutions is
+created, each of these solutions goes through a fitness function which measures
+how close these solutions perform to the optimal result that wants to be
+achieved. It is important to notice that the individual values that make it
+possible to converge to the optimal result are not known beforehand, the only
+information that is known is the final outcome which can be achieved in multiple
+ways.<br 
+class="newline" />Once the agents are evaluated by the fitness function a truncation process
+occurs, similarly as what happens in nature where only the fittest animals
+survive, also in the simulation the only agents that are allowed to be part
+and give rise to a new generation are the ones with higher fitness scores.
+How new generations are created more into detail is presented in the next
+subsection.
+<!--l. 55--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x1-30002.1"></a>The Sender Agent</h4>
+<!--l. 57--><p class="noindent" >An Agent is created as a string of binary bits and is represented as a chromosome,
+each part of it represents the three BDI features together with the three additional
+parameters mentioned in the previous section. An example of a randomly generated
+agent is the following:
+   <table 
+class="equation"><tr><td>
+                                                                  
+
+                                                                  
+   <center class="math-display" >
+<img 
+src="genAlModel0x.png" alt="Chromosome1 = 0&#x25DF;10010&#x25DD;0&#x25DC;11010&#x25DE;0&#x25DF;11101&#x25DD;1&#x25DC;10101&#x25DE;0&#x25DF;10100&#x25DD;1&#x25DC;01010&#x25DE;
+                 Beliefs     Intentions     Desires
+" class="math-display" ><a 
+ id="x1-3001r1"></a></center></td><td class="equation-label">(1)</td></tr></table>
+<!--l. 61--><p class="nopar" >
+   <table 
+class="equation"><tr><td>
+   <center class="math-display" >
+<img 
+src="genAlModel1x.png" alt="Belief s = 0&#x25DF;1&#x25DD;0&#x25DC;0&#x25DE;1&#x25DF;0&#x25DD;0&#x25DC;1&#x25DE;1&#x25DF;0&#x25DD;1&#x25DC;0&#x25DE;
+          &#x03B3;    &#x03C8;   &#x03B1;
+" class="math-display" ><a 
+ id="x1-3002r2"></a></center></td><td class="equation-label">(2)</td></tr></table>
+<!--l. 65--><p class="nopar" >
+<!--l. 67--><p class="indent" >   Every binary pair corresponds to a decimal number that if converted properly and
+summed together establishes the total fitness value of the chromosome. For the
+sender Agent an optimal value of 60 has been set, this turned out in the following
+fitness function, where n is the total length of the chromosome and the main aim is
+to find the optimal set of bits that satisfy it:
+   <table 
+class="equation"><tr><td>
+   <center class="math-display" >
+<img 
+src="genAlModel2x.png" alt="       &#x2211;n
+f(x) =    x[i] = 60
+       i=0
+" class="math-display" ><a 
+ id="x1-3003r3"></a></center></td><td class="equation-label">(3)</td></tr></table>
+<!--l. 71--><p class="nopar" >
+                                                                  
+
+                                                                  
+<!--l. 73--><p class="indent" >   For our <span 
+class="ecti-1000">Sender </span>simulation the following parameters turned out to be
+the most suitable ones while considering optimal convergence and training
+time:
+     <ul class="itemize1">
+     <li class="itemize">20 Simulations: a total number of twenty different simulations have been
+     run in order to check if the results where coherent between each other.
+     </li>
+     <li class="itemize">20 Pools of 100 Chromosomes: the simulation starts with 20 randomly
+     generated chromosome pools with 100 agents each. This is the first set
+     of agents that is evaluated by the fitness function and according to the
+     fitness scores the breeding process starts.
+     </li>
+     <li class="itemize">Truncation Method: is the approach that has been used in order to keep the
+     fittest agents allowed to reproduce themselves, in order to avoid overfitting
+     issues the top 70% of the agents has been kept while the rest 30% has
+     been discarded.
+     </li>
+     <li class="itemize">One point single crossover: is the breeding method that has been used.
+     Once two chromosomes are chosen as parents they give birth to two new
+     children by exchanging 3 of their bits. This technique is shown hereafter:
+     <table 
+class="equation"><tr><td>
+     <center class="math-display" >
+     <img 
+src="genAlModel3x.png" alt="Parent1 =    0&#x25DF;&#x25DD;1&#x25DC;0&#x25DE;    010011010011101110101010100101010
+         CrossoverBits
+     " class="math-display" ><a 
+ id="x1-3004r4"></a></center></td><td class="equation-label">(4)</td></tr></table>
+     <!--l. 84--><p class="nopar" >
+     <table 
+class="equation"><tr><td>
+     <center class="math-display" >
+     <img 
+src="genAlModel4x.png" alt="Parent2 =    011    010000010011101111001010111101000
+         Cros&#x25DF;&#x25DD;so&#x25DC;v&#x25DE;erBits
+     " class="math-display" ><a 
+ id="x1-3005r5"></a></center></td><td class="equation-label">(5)</td></tr></table>
+     <!--l. 87--><p class="nopar" >
+     <table 
+class="equation"><tr><td>
+     <center class="math-display" >
+     <img 
+src="genAlModel5x.png" alt="Child1 =   010   010000010011101111001010111101000
+        Par&#x25DF;e&#x25DD;&#x25DC;n&#x25DE;t1Bits&#x25DF;-----------Pare&#x25DD;n&#x25DC;t2Bits----------&#x25DE;
+     " class="math-display" ><a 
+ id="x1-3006r6"></a></center></td><td class="equation-label">(6)</td></tr></table>
+     <!--l. 90--><p class="nopar" >
+     <table 
+class="equation"><tr><td>
+     <center class="math-display" >
+     <img 
+src="genAlModel6x.png" alt="Child2 =   011   010011010011101110101010100101010
+        Par&#x25DF;e&#x25DD;&#x25DC;n&#x25DE;t2Bits&#x25DF;-----------Pare&#x25DD;n&#x25DC;t2Bits----------&#x25DE;
+     " class="math-display" ><a 
+ id="x1-3007r7"></a></center></td><td class="equation-label">(7)</td></tr></table>
+     <!--l. 93--><p class="nopar" >
+     </li>
+     <li class="itemize">1% mutation rate: some randomness has to be added to the newest generation
+     in order to make the pool more varied and avoid local minima, in our case a 1%
+     mutation rate has been set which means that one bit of one chromosome is
+     randomly changed from 0 to 1 or vice-versa.
+     </li></ul>
+<!--l. 99--><p class="indent" >   The following two figures show the result of the genetic algorithm and the
+analysis of the three different BDI features.
+<!--l. 101--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                  
+
+                                                                  
+<a 
+ id="x1-30081"></a><a 
+ id="x1-30092"></a>
+                                                                  
+
+                                                                  
+<!--l. 102--><p class="noindent" ><!--l. 103--><p class="noindent" ><img 
+src="goodCOnv_7.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1:  </span><span  
+class="content">The  graph  shows  how
+after 20 generations of breeding the
+pool  of  chromosomes  representing
+the <span 
+class="ecti-1000">Sender  </span>agents converge to the
+optimal  result.  Generation  4  and
+11  show  some  local  minima  that
+thanks  to  the  random  mutation
+present  in  the  genetic  algorithm
+don&#8217;t impede the achievement of the
+optimal convergence.</span></div><!--tex4ht:label?: x1-30081 -->                   <!--l. 107--><p class="noindent" ><img 
+src="SenderBDI.png" alt="PIC"  
+>
+<br />   <div class="caption" 
+><span class="id">Figure&#x00A0;2:   </span><span  
+class="content">Histogram   with   the
+analysis of the BDI features. On the
+<span 
+class="ecti-1000">x-axis </span>the decimal value represting
+that  feature  is  presented  while  on
+the <span 
+class="ecti-1000">y-axis </span>its amount of occurances
+during the simulation. The different
+colors  in  the  historgram  represent
+the   different   BDI   components:
+Beliefs are shown in yellow, Desires
+in blue and Intentions in red. The
+results show how the Belief feature
+is the one that the Agents discard
+in  order  to  get  to  the  optimal
+score,  in  fact  for  15  times  it  is
+the BDI component with the lowest
+value, 6. This is remarkable since it
+shows how not too many resources
+should be invested in imagining all
+possible  scenarios  but  it  is  better
+to have a strong set of Desires that
+nicely match with the Intention to
+pursue one of those. This is shown
+in  the  graph  where  an  optimal
+value  of  13  has  been  chosen  by
+the Agents regarding these two BDI
+components for more then 20 times.</span></div><!--tex4ht:label?: x1-30092 -->
+                                                                  
+
+                                                                  
+<!--l. 110--><p class="indent" >   </div><hr class="endfigure">
+   <h4 class="subsectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x1-40002.2"></a>The Criminal</h4>
+<!--l. 116--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-50003"></a>Discussion and Conclusion</h3>
+<!--l. 119--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-60004"></a>References</h3>
+<!--l. 121--><p class="noindent" >Rao, A. S., &amp; George, M. P. (1991). Modeling Rational Agents within a
+BDI-Architecture. <br 
+class="newline" />
+<!--l. 123--><p class="indent" >   Herrera, F., &amp; Verdegay, J. L. (1996). Genetic algorithms and soft computing.
+Physica-Verlag. <br 
+class="newline" />
+<!--l. 125--><p class="indent" >   Zhong, W., Liu, J., Xue, M., &amp; Jiao, L. (2004). A multiagent genetic algorithm
+for global numerical optimization. IEEE Transactions on Systems, Man, and
+Cybernetics, Part B (Cybernetics), 34(2), 1128-1141. <br 
+class="newline" />
+<!--l. 127--><p class="indent" >   Goldberg, D. E., &amp; Holland, J. H. (1988). Genetic algorithms and machine
+learning. Machine learning, 3(2), 95-99. <br 
+class="newline" />
+<!--l. 129--><p class="indent" >   It is possible to download the software that models the agents with the genetic
+algorithm from here: <a 
+href="https://github.com/paintception/myGEM" class="url" ><span 
+class="ectt-1000">https://github.com/paintception/myGEM</span></a>
+    
+</body></html> 
+
+                                                                  
+
+
