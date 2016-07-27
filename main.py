@@ -1,6 +1,7 @@
 import random
 from genetic_alg import run_alg
 from create_sender import *
+from create_criminal import *
 
 def standardization(generation_scores):
     
@@ -19,18 +20,25 @@ if __name__ == "__main__":
 
     for i in xrange(0, number_simulations):
 
-        number_generations = 20
+        print "Simulation", i, "running"
+        
+        number_generations = 20       
         scores = []
         generation_scores = []
         Agent_set = []
         
-        genetic_pool = createPopulation(100) #Creation of random set of Agents
-        
-        #print "This is the genetic pool:", genetic_pool
+        #TODO add option which agent to simulate!
+
+        genetic_pool = create_Sender_Population(100) #Creation of random set of Agents
+        #genetic_pool = create_Criminal_Population(100)
+
+        #print "This is the genetic_algnetic pool:", genetic_pool
         for j in xrange(0,number_generations):
+            
+            print "Generation:", j
 
             tot = 0.0
-                
+            
             for i in genetic_pool:
                 c, s = splitGenesAndScores(i)
                 #print "This is the Chromosome", c
@@ -41,8 +49,7 @@ if __name__ == "__main__":
             
             Agent_set.append(genetic_pool)
 
-            
-            if tot_score < 60:
+            if tot_score < 65:
                 generation_scores.append(tot_score) #Single Scores are saved in a global list for plotting
 
             #print "This is the score of the population:", scores

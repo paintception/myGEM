@@ -1,6 +1,6 @@
 import random
 
-n_survive = 70
+n_survive = 70	
 
 def three_parent_crossover(parent_1, parent_2, parent_3):
 
@@ -34,7 +34,7 @@ def random_mutation(generation):
 	index = random.randrange(len(generation))
 	gene_to_mutate = generation[index]
 
-	print "Gene to mutate:", gene_to_mutate
+	#print "Gene to mutate:", gene_to_mutate
 
 	list_gene_to_mutate = list(gene_to_mutate)
 
@@ -51,7 +51,7 @@ def random_mutation(generation):
 		
 	mutated_gen = ''.join(str(e) for e in list_gene_to_mutate)
 	generation[index] = mutated_gen
-		
+	
 	return generation
 
 def prepare_pool(sorted_pool):
@@ -82,6 +82,6 @@ def run_alg(pool, scores):
 		new_gen.append(c2)
 
 	mutated_gen = random_mutation(new_gen)
-	print "Length of the newest generation:", len(mutated_gen)
+	#print "Length of the newest generation:", len(mutated_gen)
 	
-	return new_gen
+	return mutated_gen

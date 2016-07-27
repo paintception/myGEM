@@ -110,7 +110,7 @@ def splitGenesAndScores(Chromosome):   #Every Agent is separated and individual 
 
     return Chromosome, ChromosomeScore
 
-def createPopulation(num_pop): #A population of Agents is created
+def create_Sender_Population(num_pop): #A population of Agents is created
                                #List of Chromosomes 
      
     population = []
