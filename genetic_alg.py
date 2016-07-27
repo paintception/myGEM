@@ -1,9 +1,8 @@
 import random
 
-n_survive = 80	
+n_survive = 80	#Percentage for the truncation method
 
-def three_parent_crossover(parent_1, parent_2, parent_3):
-
+def three_parent_crossover(parent_1, parent_2, parent_3):	# 3 Parents Crossoveer. Not used in the model but still implemented as 									breeding technique for GenAl framework
 	child = []
 
 	for i,j,k in zip(parent_1,parent_2,parent_3):
@@ -16,7 +15,7 @@ def three_parent_crossover(parent_1, parent_2, parent_3):
 
 	return child
 
-def single_crossover(parent_1, parent_2):
+def single_crossover(parent_1, parent_2):	#Single Crossover Breeding Technique
 		
 		parent_1 = ''.join(str(e) for e in parent_1)
 		parent_2 = ''.join(str(e) for e in parent_2)
@@ -29,7 +28,7 @@ def single_crossover(parent_1, parent_2):
 
 		return child1, child2
 
-def double_crossover(parent_1, parent_2):
+def double_crossover(parent_1, parent_2):	#Double Crossover Breeding Technique
 
 	cross_over_1_1 = parent_1[:6]
 	cross_over_1_2 = parent_2[:6]
@@ -42,13 +41,10 @@ def double_crossover(parent_1, parent_2):
 
 	return child_1, child_2
 	
-
-def random_mutation(generation):
+def random_mutation(generation):	#1% of random mutation in order to avoid overfitting
 	
 	index = random.randrange(len(generation))
 	gene_to_mutate = generation[index]
-
-	#print "Gene to mutate:", gene_to_mutate
 
 	list_gene_to_mutate = list(gene_to_mutate)
 
@@ -70,8 +66,8 @@ def random_mutation(generation):
 
 def prepare_pool(sorted_pool):
 	
-	elements_to_keep = (len(sorted_pool)*n_survive)/100	#Percentage of elements to keep in a generation is computed
-	
+	elements_to_keep = (len(sorted_pool)*n_survive)/100	#Percentage of elements to keep in a generation is computed, corresponds to 									the Truncation Method for the selection of the parents and to the first 								declared variable
+
 	tmp = [x[0] for x in sorted_pool]
 	genes_to_reproduce = []
 
@@ -79,7 +75,6 @@ def prepare_pool(sorted_pool):
 		if i <= elements_to_keep:
 			genes_to_reproduce.append(j)
 
-	#print "Genes to Reproduce:", genes_to_reproduce
 	return genes_to_reproduce	#Genetic pool is filtered out from weakest Agents
 
 def run_alg(pool, scores):
@@ -91,11 +86,12 @@ def run_alg(pool, scores):
 	new_gen = []
 
 	for i in xrange(0,len(filtered_gen)-1):
+		
+		#c1, c2 = single_crossover(filtered_gen[i], filtered_gen[i+1])				
 		c1, c2 = double_crossover(filtered_gen[i], filtered_gen[i+1])
 		new_gen.append(c1)
 		new_gen.append(c2)
 
 	mutated_gen = random_mutation(new_gen)
-	#print "Length of the newest generation:", len(mutated_gen)
 	
 	return mutated_gen

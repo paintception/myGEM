@@ -1,4 +1,4 @@
-import seaborn as sns
+#import seaborn as sns
 import numpy as np
 from matplotlib import pyplot as plt
 import random
@@ -9,7 +9,7 @@ Beliefes_Set = []
 Desires_Set = []
 Intentions_Set = []
 
-def makeplots(number_generations, sc):
+def makeplots(number_generations, sc):		#Plot that shows the increase of performance during one single Simulation
     
     plt.xlabel('Number of Generations')
     plt.ylabel('Succes of the Agent')
@@ -17,9 +17,9 @@ def makeplots(number_generations, sc):
     plt.ylim([30, 100])
     plt.plot(number_generations, sc)
     plt.savefig('res/GenAl/Criminal/genAl.png')
-    #plt.show()
+    plt.show()
 
-def Final_StatPlots(b, d, i):
+def Final_StatPlots(b, d, i):		#Final Stats of the BDI Architecture
 
     belief_counter = ([[x,b.count(x)] for x in set(b)]) 
     desire_counter = ([[x,d.count(x)] for x in set(d)]) 
@@ -60,7 +60,7 @@ def Final_StatPlots(b, d, i):
     plt.savefig('res/BDI/BDI_features.png')
     plt.show()
 
-def analyze_Generation(chromo):
+def analyze_Generation(chromo):	
 
     Beliefes = chromo[0:12]
     Desires = chromo[12:24]
