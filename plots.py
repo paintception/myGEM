@@ -1,4 +1,5 @@
 #import seaborn as sns
+import pylab
 import numpy as np
 from matplotlib import pyplot as plt
 import random
@@ -14,7 +15,7 @@ def makeplots(number_generations, sc):		#Plot that shows the increase of perform
     plt.xlabel('Number of Generations')
     plt.ylabel('Succes of the Agent')
     plt.title('Sender Model')
-    plt.ylim([30, 100])
+    plt.ylim([65, 100])
     plt.plot(number_generations, sc)
     plt.savefig('res/GenAl/Criminal/genAl.png')
     plt.show()
@@ -57,6 +58,11 @@ def Final_StatPlots(b, d, i):		#Final Stats of the BDI Architecture
     ax.bar(b_values-0.25, b_occurences,width=0.2,color='gold',align='center')
     ax.bar(d_values, d_occurences,width=0.2,color='blue',align='center')
     ax.bar(i_values+0.25, i_occurences,width=0.2,color='red',align='center')
+
+    b_values = b_values.tolist()
+    d_values = d_values.tolist()
+    i_values = i_values.tolist()
+
     plt.savefig('res/BDI/BDI_features.png')
     plt.show()
 

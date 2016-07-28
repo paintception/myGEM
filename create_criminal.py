@@ -98,7 +98,7 @@ def splitGenesAndScores(Chromosome):   #Every Agent is separated and individual 
     return Chromosome, ChromosomeScore
 
 def create_Criminal_Population(num_pop): #A population of Agents is created
-                               #List of Chromosomes 
+                               		 #List of Chromosomes 
      
     population = []
     

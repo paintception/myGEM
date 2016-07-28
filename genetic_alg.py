@@ -29,15 +29,17 @@ def single_crossover(parent_1, parent_2):	#Single Crossover Breeding Technique
 		return child1, child2
 
 def double_crossover(parent_1, parent_2):	#Double Crossover Breeding Technique
+	
+	n = 3
 
-	cross_over_1_1 = parent_1[:6]
-	cross_over_1_2 = parent_2[:6]
+	cross_over_1_1 = parent_1[:n]
+	cross_over_1_2 = parent_2[:n]
 
-	tmp_1 = parent_1.replace(parent_1[:6], cross_over_1_2)
-	tmp_2 = parent_2.replace(parent_2[:6], cross_over_1_1)
+	tmp_1 = parent_1.replace(parent_1[:n], cross_over_1_2)
+	tmp_2 = parent_2.replace(parent_2[:n], cross_over_1_1)
 
-	child_1 = tmp_1.replace(tmp_1[-6:], tmp_2[-6:])
-	child_2 = tmp_2.replace(tmp_2[-6:], tmp_1[-6:])
+	child_1 = tmp_1.replace(tmp_1[-n:], tmp_2[-n:])
+	child_2 = tmp_2.replace(tmp_2[-n:], tmp_1[-n:])
 
 	return child_1, child_2
 	
