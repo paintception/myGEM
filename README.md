@@ -11,6 +11,7 @@ In order to run the simulation be sure to follow the following steps:
 3. Define which Agent to simulate in main.py enabling either line 30 or 31.
 4. Enable the plotting in plots.py on line 21 to see how well the generation of Agents performs.
 5. Enable in plots.py the plotting option on line 67 in order to see the analysis of the Agents.
+6. Launch main.py
 
 The Genetic Algorithm implements 3 different breeding techniques, however only two of them are reported in the final pdf. Nevertheless 
 it is possible to use all of them for other genetic-programming tasks: Single Crossover, Double Crossover and Three Parents Crossover.
