@@ -1,9 +1,9 @@
 import seaborn as sns
 import pylab
 import numpy as np
-from matplotlib import pyplot as plt
 import random
 import os
+from matplotlib import pyplot as plt
 
 Beliefes_Set = []
 Desires_Set = []

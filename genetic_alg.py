@@ -91,7 +91,7 @@ def run_alg(pool, scores):
 
 	for i in xrange(0,len(filtered_gen)-1):
 		
-		#c1, c2 = single_crossover(filtered_gen[i], filtered_gen[i+1])				
+		#c1, c2 = single_crossover(filtered_gen[i], filtered_gen[i+1])		#Choose breeding technique			
 		c1, c2 = double_crossover(filtered_gen[i], filtered_gen[i+1])
 		new_gen.append(c1)
 		new_gen.append(c2)
