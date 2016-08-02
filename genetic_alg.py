@@ -17,20 +17,22 @@ def three_parent_crossover(parent_1, parent_2, parent_3):	# 3 Parents Crossoveer
 
 def single_crossover(parent_1, parent_2):	#Single Crossover Breeding Technique
 		
+		n = parent_3	#Bits to exchange
+
 		parent_1 = ''.join(str(e) for e in parent_1)
 		parent_2 = ''.join(str(e) for e in parent_2)
 
-		cross_over_1_1 = parent_1[:3]
-		cross_over_1_2 = parent_2[:3]
+		cross_over_1_1 = parent_1[:n]
+		cross_over_1_2 = parent_2[:n]
 
-		child1 = parent_1.replace(parent_1[:3], cross_over_1_2)
-		child2 = parent_2.replace(parent_2[:3], cross_over_1_1)
+		child1 = parent_1.replace(parent_1[:n], cross_over_1_2)
+		child2 = parent_2.replace(parent_2[:n], cross_over_1_1)
 
 		return child1, child2
 
 def double_crossover(parent_1, parent_2):	#Double Crossover Breeding Technique
 	
-	n = 3
+	n = 3 	#Bits to exchange
 
 	cross_over_1_1 = parent_1[:n]
 	cross_over_1_2 = parent_2[:n]

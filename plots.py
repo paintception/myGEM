@@ -17,7 +17,7 @@ def makeplots(number_generations, sc):		#Plot that shows the increase of perform
     plt.title('Criminal Model')
     plt.ylim([65, 100])
     plt.plot(number_generations, sc)
-    plt.savefig('res/GenAl/Criminal/genAl.png')
+    plt.savefig('res/GenAl/genAl.png')
     plt.show()
 
 def Final_StatPlots(b, d, i):		#Final Stats of the BDI Architecture

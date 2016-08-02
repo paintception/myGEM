@@ -26,8 +26,6 @@ if __name__ == "__main__":
         scores = []
         generation_scores = []
         Agent_set = []
-        
-        #TODO add option which agent to simulate!
 
         #genetic_pool = create_Sender_Population(100) #Creation of random set of Sender Agents
         genetic_pool = create_Criminal_Population(100)	#Creation of random set of Criminal Agents
