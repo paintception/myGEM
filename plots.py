@@ -3,7 +3,6 @@ import pylab
 import numpy as np
 from matplotlib import pyplot as plt
 import random
-import pylab
 import os
 
 Beliefes_Set = []
